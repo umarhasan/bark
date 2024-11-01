@@ -10,12 +10,16 @@ use App\Models\PageCategory;
 use App\Models\PageSections;
 use App\Models\VeriantColor;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\File;
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $countries = json_decode(File::get(base_path('countries.json')));
+        $cities = json_decode(File::get(base_path('cities.json')));
+        $states = json_decode(File::get(base_path('states.json')));
+
+        return view('home', compact('countries', 'cities', 'states'));
     }
 
     public function lead_genrate(Request $request){
